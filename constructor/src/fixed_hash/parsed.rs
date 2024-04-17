@@ -8,6 +8,8 @@
 
 //! Convert the parsed tokens into structs after some checks.
 
+use alloc::string::{String, ToString};
+use hashbrown::HashSet;
 use crate::definition;
 
 pub struct HashDefinition {
@@ -15,7 +17,7 @@ pub struct HashDefinition {
     pub attrs: HashAttributes,
 }
 
-impl ::std::convert::From<definition::Definition> for HashDefinition {
+impl ::core::convert::From<definition::Definition> for HashDefinition {
     fn from(input: definition::Definition) -> Self {
         let name = input.name.to_string();
         let attrs = input.attrs.into();
@@ -30,7 +32,7 @@ pub struct HashAttributes {
 impl HashAttributes {
     pub fn refresh_and_check_with_panics(
         &mut self,
-        check: &::std::collections::HashSet<&'static str>,
+        check: &HashSet<&'static str>,
     ) {
         if !check.contains("size") {
             panic!("Failed to parse attribute `size`");
@@ -50,16 +52,16 @@ impl HashAttributes {
     }
 }
 
-impl ::std::default::Default for HashAttributes {
+impl ::core::default::Default for HashAttributes {
     fn default() -> Self {
         Self { size: 0 }
     }
 }
 
-impl ::std::convert::From<definition::Attributes> for HashAttributes {
+impl ::core::convert::From<definition::Attributes> for HashAttributes {
     fn from(input: definition::Attributes) -> Self {
         let mut ret = Self::default();
-        let mut check = ::std::collections::HashSet::new();
+        let mut check = HashSet::new();
         for attr in input.into_iter() {
             match attr.key.to_string().as_ref() {
                 "size" => parse_attr_with_check!(Int, size, attr.value, ret, check),

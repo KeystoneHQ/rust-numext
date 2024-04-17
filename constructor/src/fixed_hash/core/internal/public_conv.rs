@@ -10,6 +10,7 @@
 
 use crate::fixed_hash::HashConstructor;
 use crate::utils;
+use alloc::{format, vec};
 use quote::quote;
 
 impl HashConstructor {

@@ -5,9 +5,10 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
-
+#![no_std]
 #![recursion_limit = "1024"]
 
+extern crate alloc;
 extern crate proc_macro;
 #[macro_use]
 extern crate quote;
@@ -19,6 +20,7 @@ mod definition;
 mod fixed_hash;
 mod fixed_uint;
 
+use alloc::vec::Vec;
 use quote::quote;
 use syn::parse_macro_input;
 

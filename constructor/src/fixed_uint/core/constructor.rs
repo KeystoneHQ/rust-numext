@@ -10,10 +10,13 @@
 
 use super::super::parsed;
 use crate::utils;
+use alloc::format;
+use alloc::string::String;
+use alloc::vec::Vec;
 use proc_macro2::TokenStream;
 use quote::quote;
-use std::cell::Cell;
-use std::iter::FromIterator;
+use core::cell::Cell;
+use core::iter::FromIterator;
 
 pub struct UintInformation {
     pub name: String,
@@ -24,7 +27,7 @@ pub struct UintInformation {
     pub unit_amount: u64,
 }
 
-impl ::std::convert::From<parsed::UintDefinition> for UintInformation {
+impl ::core::convert::From<parsed::UintDefinition> for UintInformation {
     fn from(data: parsed::UintDefinition) -> Self {
         let parsed::UintDefinition { name, attrs } = data;
         // bits size for the whole unsigned integer
@@ -64,7 +67,7 @@ pub struct UintTokenStreams {
     pub mod_name: syn::Ident,
 }
 
-impl<'a> ::std::convert::From<&'a UintInformation> for UintTokenStreams {
+impl<'a> ::core::convert::From<&'a UintInformation> for UintTokenStreams {
     fn from(info: &UintInformation) -> Self {
         let name = utils::ident_to_ts(info.name.as_ref());
         let bits_size = utils::pure_uint_to_ts(info.bits_size);

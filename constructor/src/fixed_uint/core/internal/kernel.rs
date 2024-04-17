@@ -125,7 +125,7 @@ impl UintConstructor {
         let unit_amount = &self.ts.unit_amount;
         let loop_unit_amount = &utils::pure_uint_list_to_ts(0..self.info.unit_amount);
         let zero_padding = &utils::pure_uint_list_to_ts(
-            ::std::iter::repeat(0).take((self.info.unit_amount - 1) as usize),
+            ::core::iter::repeat(0).take((self.info.unit_amount - 1) as usize),
         );
         let one = quote!([1, #(#zero_padding),* ]);
         let part = quote!(

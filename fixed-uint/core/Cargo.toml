@@ -13,10 +13,10 @@ license = "Apache-2.0 OR MIT"
 
 [dependencies]
 constructor = { package = "numext-constructor", version = "=0.1.6", path = "../../constructor" }
-thiserror = "~1.0"
-rand = { version = "~0.7", optional = true }
+thiserror = { version = "1.0", package = "thiserror-core", default-features = false }
+rand = { version = "~0.7", optional = true, default-features = false }
 heapsize = { version = "~0.4", optional = true }
-serde = { version = "~1.0", optional = true }
+serde = { version = "~1.0", optional = true, default-features = false }
 
 [features]
 default = ["bits_all"]

@@ -6,6 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use alloc::vec::Vec;
+use alloc::{format, string::ToString};
 use proc_macro2::{Span, TokenStream};
 use quote::ToTokens;
 

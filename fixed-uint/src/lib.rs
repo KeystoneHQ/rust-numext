@@ -40,6 +40,8 @@
 //! }
 //! ```
 
+#![no_std]
+
 extern crate nfuint_core;
 extern crate nfuint_hack;
 

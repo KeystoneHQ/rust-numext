@@ -10,10 +10,13 @@
 
 use super::super::parsed;
 use crate::utils;
+use alloc::format;
+use alloc::string::String;
+use alloc::vec::Vec;
 use proc_macro2::TokenStream;
 use quote::quote;
-use std::cell::Cell;
-use std::iter::FromIterator;
+use core::cell::Cell;
+use core::iter::FromIterator;
 
 pub struct HashInformation {
     pub name: String,
@@ -22,7 +25,7 @@ pub struct HashInformation {
     pub expand: bool,
 }
 
-impl ::std::convert::From<parsed::HashDefinition> for HashInformation {
+impl ::core::convert::From<parsed::HashDefinition> for HashInformation {
     fn from(data: parsed::HashDefinition) -> Self {
         let parsed::HashDefinition { name, attrs } = data;
         // bits size for the whole unsigned integer
@@ -52,7 +55,7 @@ pub struct HashTokenStreams {
     pub mod_name: syn::Ident,
 }
 
-impl<'a> ::std::convert::From<&'a HashInformation> for HashTokenStreams {
+impl<'a> ::core::convert::From<&'a HashInformation> for HashTokenStreams {
     fn from(info: &HashInformation) -> Self {
         let name = utils::ident_to_ts(info.name.as_ref());
         let bits_size = utils::pure_uint_to_ts(info.bits_size);

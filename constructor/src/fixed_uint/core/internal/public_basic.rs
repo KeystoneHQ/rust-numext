@@ -10,6 +10,7 @@
 
 use crate::fixed_uint::UintConstructor;
 use crate::utils;
+use alloc::vec;
 use quote::quote;
 
 impl UintConstructor {
