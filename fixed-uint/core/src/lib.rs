@@ -14,8 +14,15 @@
 //!
 //! [numext-fixed-uint]: https://docs.rs/numext-fixed-uint
 
+#![no_std]
+
+extern crate alloc;
+
 extern crate constructor;
 
+use alloc::vec::Vec;
+use alloc::format;
+use alloc::string::String;
 use thiserror::Error;
 
 constructor::construct_fixed_uints!(

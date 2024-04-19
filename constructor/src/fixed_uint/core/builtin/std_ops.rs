@@ -6,11 +6,11 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::ops`].
+//! Implement built-in traits in [`::core::ops`].
 //!
 //! Not implement `Deref` and `DerefMut` traits to reduce confusion.
 //!
-//! [`::std::ops`]: https://doc.rust-lang.org/std/ops/index.html#traits
+//! [`::core::ops`]: https://doc.rust-lang.org/core/ops/index.html#traits
 
 use crate::fixed_uint::UintConstructor;
 use crate::utils;
@@ -51,9 +51,9 @@ impl UintConstructor {
             _ => unreachable!(),
         };
         let part = quote!(
-            impl<'a, Rhs> ::std::ops::#trait_name<Rhs> for &'a #name
+            impl<'a, Rhs> ::core::ops::#trait_name<Rhs> for &'a #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 type Output = #name;
                 #[inline]
@@ -65,9 +65,9 @@ impl UintConstructor {
                     ret
                 }
             }
-            impl<Rhs> ::std::ops::#trait_name<Rhs> for #name
+            impl<Rhs> ::core::ops::#trait_name<Rhs> for #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 type Output = #name;
                 #[inline]
@@ -79,9 +79,9 @@ impl UintConstructor {
                     ret
                 }
             }
-            impl<Rhs> ::std::ops::#trait_assign_name<Rhs> for #name
+            impl<Rhs> ::core::ops::#trait_assign_name<Rhs> for #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 #[inline]
                 fn #func_assign_name(&mut self, other: Rhs) {
@@ -92,7 +92,7 @@ impl UintConstructor {
                     *self = ret;
                 }
             }
-            impl<'a, 'b> ::std::ops::#trait_name<&'b #name> for &'a #name {
+            impl<'a, 'b> ::core::ops::#trait_name<&'b #name> for &'a #name {
                 type Output = #name;
                 #[inline]
                 fn #func_name(self, other: &#name) -> Self::Output {
@@ -103,7 +103,7 @@ impl UintConstructor {
                     ret
                 }
             }
-            impl<'a> ::std::ops::#trait_name<&'a #name> for #name {
+            impl<'a> ::core::ops::#trait_name<&'a #name> for #name {
                 type Output = #name;
                 #[inline]
                 fn #func_name(self, other: &'a #name) -> Self::Output {
@@ -114,7 +114,7 @@ impl UintConstructor {
                     ret
                 }
             }
-            impl<'a> ::std::ops::#trait_assign_name<&'a #name> for #name {
+            impl<'a> ::core::ops::#trait_assign_name<&'a #name> for #name {
                 #[inline]
                 fn #func_assign_name(&mut self, other: &#name) {
                     let (ret, of) = self.#real_func(other);
@@ -137,9 +137,9 @@ impl UintConstructor {
         let trait_assign_name = utils::ident_to_ts(format!("{}Assign", trait_name).as_ref());
         let func_assign_name = utils::ident_to_ts(format!("{}_assign", func_name).as_ref());
         let part = quote!(
-            impl<'a, Rhs> ::std::ops::#trait_name<Rhs> for &'a #name
+            impl<'a, Rhs> ::core::ops::#trait_name<Rhs> for &'a #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 type Output = #name;
                 #[inline]
@@ -147,9 +147,9 @@ impl UintConstructor {
                     self.#real_func(&other.into())
                 }
             }
-            impl<Rhs> ::std::ops::#trait_name<Rhs> for #name
+            impl<Rhs> ::core::ops::#trait_name<Rhs> for #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 type Output = #name;
                 #[inline]
@@ -157,30 +157,30 @@ impl UintConstructor {
                     self.#real_func(&other.into())
                 }
             }
-            impl<Rhs> ::std::ops::#trait_assign_name<Rhs> for #name
+            impl<Rhs> ::core::ops::#trait_assign_name<Rhs> for #name
             where
-                Rhs: ::std::convert::Into<#name>,
+                Rhs: ::core::convert::Into<#name>,
             {
                 #[inline]
                 fn #func_assign_name(&mut self, other: Rhs) {
                     *self = self.#real_func(&other.into());
                 }
             }
-            impl<'a, 'b> ::std::ops::#trait_name<&'b #name> for &'a #name {
+            impl<'a, 'b> ::core::ops::#trait_name<&'b #name> for &'a #name {
                 type Output = #name;
                 #[inline]
                 fn #func_name(self, other: &#name) -> Self::Output {
                     self.#real_func(other)
                 }
             }
-            impl<'a> ::std::ops::#trait_name<&'a #name> for #name {
+            impl<'a> ::core::ops::#trait_name<&'a #name> for #name {
                 type Output = #name;
                 #[inline]
                 fn #func_name(self, other: &#name) -> Self::Output {
                     self.#real_func(other)
                 }
             }
-            impl<'a> ::std::ops::#trait_assign_name<&'a #name> for #name {
+            impl<'a> ::core::ops::#trait_assign_name<&'a #name> for #name {
                 #[inline]
                 fn #func_assign_name(&mut self, other: &#name) {
                     *self = self.#real_func(other);
@@ -194,14 +194,14 @@ impl UintConstructor {
     fn impl_traits_std_ops_not(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl<'a> ::std::ops::Not for &'a #name {
+            impl<'a> ::core::ops::Not for &'a #name {
                 type Output = #name;
                 #[inline]
                 fn not(self) -> Self::Output {
                     self._not()
                 }
             }
-            impl ::std::ops::Not for #name {
+            impl ::core::ops::Not for #name {
                 type Output = #name;
                 #[inline]
                 fn not(self) -> Self::Output {
@@ -222,42 +222,42 @@ impl UintConstructor {
             let uint_name = utils::ident_to_ts(uint_name);
             let real_func = utils::ident_to_ts(format!("_ush{}", direction).as_ref());
             let part = quote!(
-                impl<'a, 'b> ::std::ops::#trait_name<&'a #uint_name> for &'b #name {
+                impl<'a, 'b> ::core::ops::#trait_name<&'a #uint_name> for &'b #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: &#uint_name) -> Self::Output {
                         self.#real_func(*other as u128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_name<#uint_name> for &'a #name {
+                impl<'a> ::core::ops::#trait_name<#uint_name> for &'a #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: #uint_name) -> Self::Output {
                         self.#real_func(other as u128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_name<&'a #uint_name> for #name {
+                impl<'a> ::core::ops::#trait_name<&'a #uint_name> for #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: &#uint_name) -> Self::Output {
                         self.#real_func(*other as u128)
                     }
                 }
-                impl ::std::ops::#trait_name<#uint_name> for #name {
+                impl ::core::ops::#trait_name<#uint_name> for #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: #uint_name) -> Self::Output {
                         self.#real_func(other as u128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_assign_name<&'a #uint_name> for #name {
+                impl<'a> ::core::ops::#trait_assign_name<&'a #uint_name> for #name {
                     #[inline]
                     fn #func_assign_name(&mut self, other: &#uint_name) {
                         let ret = self.#real_func(*other as u128);
                         *self = ret;
                     }
                 }
-                impl ::std::ops::#trait_assign_name<#uint_name> for #name {
+                impl ::core::ops::#trait_assign_name<#uint_name> for #name {
                     #[inline]
                     fn #func_assign_name(&mut self, other: #uint_name) {
                         let ret = self.#real_func(other as u128);
@@ -271,42 +271,42 @@ impl UintConstructor {
             let int_name = utils::ident_to_ts(int_name);
             let real_func = utils::ident_to_ts(format!("_ish{}", direction).as_ref());
             let part = quote!(
-                impl<'a, 'b> ::std::ops::#trait_name<&'a #int_name> for &'b #name {
+                impl<'a, 'b> ::core::ops::#trait_name<&'a #int_name> for &'b #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: &#int_name) -> Self::Output {
                         self.#real_func(*other as i128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_name<#int_name> for &'a #name {
+                impl<'a> ::core::ops::#trait_name<#int_name> for &'a #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: #int_name) -> Self::Output {
                         self.#real_func(other as i128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_name<&'a #int_name> for #name {
+                impl<'a> ::core::ops::#trait_name<&'a #int_name> for #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: &#int_name) -> Self::Output {
                         self.#real_func(*other as i128)
                     }
                 }
-                impl ::std::ops::#trait_name<#int_name> for #name {
+                impl ::core::ops::#trait_name<#int_name> for #name {
                     type Output = #name;
                     #[inline]
                     fn #func_name(self, other: #int_name) -> Self::Output {
                         self.#real_func(other as i128)
                     }
                 }
-                impl<'a> ::std::ops::#trait_assign_name<&'a #int_name> for #name {
+                impl<'a> ::core::ops::#trait_assign_name<&'a #int_name> for #name {
                     #[inline]
                     fn #func_assign_name(&mut self, other: &#int_name) {
                         let ret = self.#real_func(*other as i128);
                         *self = ret;
                     }
                 }
-                impl ::std::ops::#trait_assign_name<#int_name> for #name {
+                impl ::core::ops::#trait_assign_name<#int_name> for #name {
                     #[inline]
                     fn #func_assign_name(&mut self, other: #int_name) {
                         let ret = self.#real_func(other as i128);

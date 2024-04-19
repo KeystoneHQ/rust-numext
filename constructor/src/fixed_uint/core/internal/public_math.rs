@@ -32,7 +32,7 @@ impl UintConstructor {
                 let mut n = other.clone();
 
                 // find common factors of 2
-                let shift = ::std::cmp::min(m.trailing_zeros(), n.trailing_zeros());
+                let shift = ::core::cmp::min(m.trailing_zeros(), n.trailing_zeros());
 
                 // divide m and n by 2 until odd
                 // m inside loop
@@ -41,7 +41,7 @@ impl UintConstructor {
                 while !m.is_zero() {
                     m >>= m.trailing_zeros();
                     if n > m {
-                        ::std::mem::swap(&mut n, &mut m)
+                        ::core::mem::swap(&mut n, &mut m)
                     }
                     m -= &n;
                 }

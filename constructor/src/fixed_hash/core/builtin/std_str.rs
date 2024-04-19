@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::str`].
+//! Implement built-in traits in [`::core::str`].
 //!
-//! [`::std::str`]: https://doc.rust-lang.org/std/str/index.html#traits
+//! [`::core::str`]: https://doc.rust-lang.org/core/str/index.html#traits
 
 use crate::fixed_hash::HashConstructor;
 use quote::quote;
@@ -18,7 +18,7 @@ impl HashConstructor {
         let name = &self.ts.name;
         let error_name = &self.ts.error_name;
         let part = quote!(
-            impl ::std::str::FromStr for #name {
+            impl ::core::str::FromStr for #name {
                 type Err = #error_name;
                 /// Convert from a hexadecimal string.
                 #[inline]

@@ -66,7 +66,7 @@ impl UintConstructor {
                         let bytes = &bytes[non_zero_idx..];
                         let len = hex_to(bytes, &mut dst[2..]);
                         serializer.serialize_str(unsafe {
-                            ::std::str::from_utf8_unchecked(&dst[..(len + 2)])
+                            ::core::str::from_utf8_unchecked(&dst[..(len + 2)])
                         })
                     } else {
                         serializer.serialize_str("0x0")
@@ -87,8 +87,8 @@ impl UintConstructor {
 
                         fn expecting(
                             &self,
-                            formatter: &mut ::std::fmt::Formatter,
-                        ) -> ::std::fmt::Result {
+                            formatter: &mut ::core::fmt::Formatter,
+                        ) -> ::core::fmt::Result {
                             write!(
                                 formatter,
                                 "a 0x-prefixed, no leading zeroes allowed hex string with at most {} digits",

@@ -34,7 +34,7 @@ impl HashConstructor {
                     dst[1] = b'x';
                     faster_hex::hex_encode(bytes, &mut dst[2..])
                         .map_err(|e| serde::ser::Error::custom(&format!("{}", e)))?;
-                    serializer.serialize_str(unsafe { ::std::str::from_utf8_unchecked(&dst) })
+                    serializer.serialize_str(unsafe { ::core::str::from_utf8_unchecked(&dst) })
                 }
             }
 
@@ -51,8 +51,8 @@ impl HashConstructor {
 
                         fn expecting(
                             &self,
-                            formatter: &mut ::std::fmt::Formatter,
-                        ) -> ::std::fmt::Result {
+                            formatter: &mut ::core::fmt::Formatter,
+                        ) -> ::core::fmt::Result {
                             write!(
                                 formatter,
                                 "a 0x-prefixed hex string with {} digits",

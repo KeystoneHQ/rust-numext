@@ -26,7 +26,7 @@ impl HashConstructor {
             quote!(
                 #[inline]
                 fn _bitand(&self, rhs: &Self) -> Self {
-                    let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let inner = self.inner();
                     let rhs = rhs.inner();
                     #({
@@ -37,7 +37,7 @@ impl HashConstructor {
                 }
                 #[inline]
                 fn _bitor(&self, rhs: &Self) -> Self {
-                    let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let inner = self.inner();
                     let rhs = rhs.inner();
                     #({
@@ -48,7 +48,7 @@ impl HashConstructor {
                 }
                 #[inline]
                 fn _bitxor(&self, rhs: &Self) -> Self {
-                    let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let inner = self.inner();
                     let rhs = rhs.inner();
                     #({
@@ -63,7 +63,7 @@ impl HashConstructor {
                 #[inline]
                 fn _bitand(&self, rhs: &Self) -> Self {
                     let mut ret: #inner_type =
-                        unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                        unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let rhs = rhs.inner();
                     for (idx, lhs) in self.inner().iter().enumerate() {
                         ret[idx] = lhs & rhs[idx];
@@ -73,7 +73,7 @@ impl HashConstructor {
                 #[inline]
                 fn _bitor(&self, rhs: &Self) -> Self {
                     let mut ret: #inner_type =
-                        unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                        unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let rhs = rhs.inner();
                     for (idx, lhs) in self.inner().iter().enumerate() {
                         ret[idx] = lhs | rhs[idx];
@@ -83,7 +83,7 @@ impl HashConstructor {
                 #[inline]
                 fn _bitxor(&self, rhs: &Self) -> Self {
                     let mut ret: #inner_type =
-                        unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                        unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let rhs = rhs.inner();
                     for (idx, lhs) in self.inner().iter().enumerate() {
                         ret[idx] = lhs ^ rhs[idx];
@@ -102,7 +102,7 @@ impl HashConstructor {
             quote!(
                 #[inline]
                 fn _not(&self) -> Self {
-                    let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let inner = self.inner();
                     #({
                         let idx = #loop_unit_amount;
@@ -116,7 +116,7 @@ impl HashConstructor {
                 #[inline]
                 fn _not(&self) -> Self {
                     let mut ret: #inner_type =
-                        unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                        unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                     let inner = self.inner();
                     for (idx, val) in self.inner().iter().enumerate() {
                         ret[idx] = !val;

@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::str`].
+//! Implement built-in traits in [`::core::str`].
 //!
 //! Not implement `FromStr` traits to reduce confusion.
 //! Use `from_bin_str`, `from_oct_str`, `from_hex_str` or `from_dec_str` to instead of.
 //!
-//! [`::std::str`]: https://doc.rust-lang.org/std/str/index.html#traits
+//! [`::core::str`]: https://doc.rust-lang.org/core/str/index.html#traits

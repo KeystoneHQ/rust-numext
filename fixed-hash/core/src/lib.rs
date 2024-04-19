@@ -14,9 +14,18 @@
 //!
 //! [numext-fixed-hash]: https://docs.rs/numext-fixed-hash
 
+#![no_std]
+
 extern crate constructor;
+extern crate alloc;
 
 use thiserror::Error;
+use alloc::format;
+use alloc::vec::Vec;
+use alloc::string::String;
+use core::primitive::str;
+
+
 
 #[macro_use]
 mod tools;

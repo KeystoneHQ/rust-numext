@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::cmp`].
+//! Implement built-in traits in [`::core::cmp`].
 //!
-//! [`::std::cmp`]: https://doc.rust-lang.org/std/cmp/index.html#traits
+//! [`::core::cmp`]: https://doc.rust-lang.org/core/cmp/index.html#traits
 
 use crate::fixed_uint::UintConstructor;
 use crate::utils;
@@ -27,7 +27,7 @@ impl UintConstructor {
         let lidx = utils::pure_uint_list_to_ts(0..self.info.unit_amount);
         let ridx = lidx.clone();
         let part = quote!(
-            impl ::std::cmp::PartialEq for #name {
+            impl ::core::cmp::PartialEq for #name {
                 #[inline]
                 fn eq(&self, other: &Self) -> bool {
                     let lhs = self.inner();
@@ -47,7 +47,7 @@ impl UintConstructor {
     fn impl_traits_std_cmp_eq(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl ::std::cmp::Eq for #name {}
+            impl ::core::cmp::Eq for #name {}
         );
         self.implt(part);
     }
@@ -55,9 +55,9 @@ impl UintConstructor {
     fn impl_traits_std_cmp_partialord(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl ::std::cmp::PartialOrd for #name {
+            impl ::core::cmp::PartialOrd for #name {
                 #[inline]
-                fn partial_cmp(&self, other: &Self) -> Option<::std::cmp::Ordering> {
+                fn partial_cmp(&self, other: &Self) -> Option<::core::cmp::Ordering> {
                     Some(self.cmp(other))
                 }
             }
@@ -69,22 +69,22 @@ impl UintConstructor {
         let name = &self.ts.name;
         let idx = utils::pure_uint_list_to_ts((0..self.info.unit_amount).rev());
         let part = quote!(
-            impl ::std::cmp::Ord for #name {
+            impl ::core::cmp::Ord for #name {
                 #[inline]
-                fn cmp(&self, other: &Self) -> ::std::cmp::Ordering {
+                fn cmp(&self, other: &Self) -> ::core::cmp::Ordering {
                     let lhs = self.inner();
                     let rhs = other.inner();
                     #({
                         let idx = #idx;
                         if lhs[idx] != rhs[idx] {
                             return if lhs[idx] > rhs[idx] {
-                                ::std::cmp::Ordering::Greater
+                                ::core::cmp::Ordering::Greater
                             } else {
-                                ::std::cmp::Ordering::Less
+                                ::core::cmp::Ordering::Less
                             };
                         }
                     })*
-                    ::std::cmp::Ordering::Equal
+                    ::core::cmp::Ordering::Equal
                 }
             }
         );

@@ -14,11 +14,15 @@
 //!
 //! [numext-fixed-uint]: https://docs.rs/numext-fixed-uint
 
+#![no_std]
+
+extern crate alloc;
 extern crate nfuint_core;
 
 extern crate proc_macro;
 
 use quote::quote;
+use alloc::format;
 use syn::parse_macro_input;
 
 macro_rules! impl_func {

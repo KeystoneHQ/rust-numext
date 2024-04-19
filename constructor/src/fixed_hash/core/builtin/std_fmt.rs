@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::fmt`].
+//! Implement built-in traits in [`::core::fmt`].
 //!
-//! [`::std::fmt`]: https://doc.rust-lang.org/std/fmt/index.html#traits
+//! [`::core::fmt`]: https://doc.rust-lang.org/core/fmt/index.html#traits
 
 use crate::fixed_hash::HashConstructor;
 use crate::utils;
@@ -28,9 +28,9 @@ impl HashConstructor {
         let loop_unit_amount = &utils::pure_uint_list_to_ts(0..self.info.unit_amount);
         let loop_unit_amount_skip_first = &utils::pure_uint_list_to_ts(1..self.info.unit_amount);
         let part = quote!(
-            impl ::std::fmt::Debug for #name {
+            impl ::core::fmt::Debug for #name {
                 #[inline]
-                fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
                     let data = self.inner();
                     let alternate = f.alternate();
                     write!(f, stringify!(#name))?;
@@ -70,9 +70,9 @@ impl HashConstructor {
             })
         };
         let part = quote!(
-            impl ::std::fmt::#trait_name for #name {
+            impl ::core::fmt::#trait_name for #name {
                 #[inline]
-                fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
                     let data = self.inner();
                     if f.alternate() {
                         write!(f, #prefix)?;
@@ -121,9 +121,9 @@ impl HashConstructor {
             quote!(#(write!(f, #loop_write_tpl_padded, data[#loop_unit_amount])?;)*)
         };
         let part = quote!(
-            impl ::std::fmt::#trait_name for #name {
+            impl ::core::fmt::#trait_name for #name {
                 #[inline]
-                fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                fn fmt(&self, f: &mut ::core::fmt::Formatter) -> ::core::fmt::Result {
                     let data = self.inner();
                     if f.alternate() {
                         write!(f, "0x")?;

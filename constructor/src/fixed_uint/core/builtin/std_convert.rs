@@ -6,11 +6,11 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::convert`].
+//! Implement built-in traits in [`::core::convert`].
 //!
 //! Not implement `AsRef` and `AsMut` traits to reduce confusion.
 //!
-//! [`::std::convert`]: https://doc.rust-lang.org/std/convert/index.html#traits
+//! [`::core::convert`]: https://doc.rust-lang.org/core/convert/index.html#traits
 
 use crate::fixed_uint::UintConstructor;
 use crate::utils;
@@ -26,7 +26,7 @@ impl UintConstructor {
     fn impl_traits_std_convert_from_bool(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl ::std::convert::From<bool> for #name {
+            impl ::core::convert::From<bool> for #name {
                 #[inline]
                 fn from(val: bool) -> Self {
                     if val {
@@ -46,13 +46,13 @@ impl UintConstructor {
             let prim_type = utils::uint_suffix_to_ts(*prim_bits_size);
             let func_name = utils::ident_to_ts(format!("_from_u{}", prim_bits_size).as_ref());
             let part = quote!(
-                impl ::std::convert::From<#prim_type> for #name {
+                impl ::core::convert::From<#prim_type> for #name {
                     #[inline]
                     fn from(prim: #prim_type) -> Self {
                         Self::#func_name(prim)
                     }
                 }
-                impl<'a> ::std::convert::From<&'a #prim_type> for #name {
+                impl<'a> ::core::convert::From<&'a #prim_type> for #name {
                     #[inline]
                     fn from(prim: &#prim_type) -> Self {
                         Self::#func_name(*prim)

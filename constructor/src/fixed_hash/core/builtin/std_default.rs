@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::default`].
+//! Implement built-in traits in [`::core::default`].
 //!
-//! [`::std::default`]: https://doc.rust-lang.org/std/default/index.html#traits
+//! [`::core::default`]: https://doc.rust-lang.org/core/default/index.html#traits
 
 use crate::fixed_hash::HashConstructor;
 use quote::quote;
@@ -17,7 +17,7 @@ impl HashConstructor {
     pub fn impl_traits_std_default(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl ::std::default::Default for #name {
+            impl ::core::default::Default for #name {
                 #[inline]
                 fn default() -> Self {
                     Self::empty()

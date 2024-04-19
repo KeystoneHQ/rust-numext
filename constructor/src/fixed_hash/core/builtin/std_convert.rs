@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::convert`].
+//! Implement built-in traits in [`::core::convert`].
 //!
-//! [`::std::convert`]: https://doc.rust-lang.org/std/convert/index.html#traits
+//! [`::core::convert`]: https://doc.rust-lang.org/core/convert/index.html#traits
 
 use crate::fixed_hash::HashConstructor;
 use quote::quote;
@@ -22,13 +22,13 @@ impl HashConstructor {
     fn impl_traits_std_convert_from_as(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl ::std::convert::AsRef<[u8]> for #name {
+            impl ::core::convert::AsRef<[u8]> for #name {
                 #[inline]
                 fn as_ref(&self) -> &[u8] {
                     &self.inner()[..]
                 }
             }
-            impl ::std::convert::AsMut<[u8]> for #name {
+            impl ::core::convert::AsMut<[u8]> for #name {
                 #[inline]
                 fn as_mut(&mut self) -> &mut [u8] {
                     &mut self.mut_inner()[..]
@@ -42,19 +42,19 @@ impl HashConstructor {
         let name = &self.ts.name;
         let inner_type = &self.ts.inner_type;
         let part = quote!(
-            impl ::std::convert::From<#inner_type> for #name {
+            impl ::core::convert::From<#inner_type> for #name {
                 #[inline]
                 fn from(bytes: #inner_type) -> Self {
                     Self::new(bytes)
                 }
             }
-            impl<'a> ::std::convert::From<&'a #inner_type> for #name {
+            impl<'a> ::core::convert::From<&'a #inner_type> for #name {
                 #[inline]
                 fn from(bytes: &'a #inner_type) -> Self {
                     Self::new(*bytes)
                 }
             }
-            impl ::std::convert::From<#name> for #inner_type {
+            impl ::core::convert::From<#name> for #inner_type {
                 #[inline]
                 fn from(hash: #name) -> Self {
                     hash.into_inner()

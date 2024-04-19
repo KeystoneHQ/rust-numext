@@ -183,14 +183,14 @@ impl UintConstructor {
                     // The carry only can be one.
                     let (val_o, of_o) = #unit_suffix::overflowing_add(val_n, 1);
                     unsafe {
-                        ::std::ptr::write(ret_ptr.offset(#i), val_o);
+                        ::core::ptr::write(ret_ptr.offset(#i), val_o);
                     }
                     // Can not overflow twice.
                     of_n || of_o
                 } else {
                     let (val_n, of_n) = #unit_suffix::overflowing_add(lhs[#i], rhs[#i]);
                     unsafe {
-                        ::std::ptr::write(ret_ptr.offset(#i), val_n);
+                        ::core::ptr::write(ret_ptr.offset(#i), val_n);
                     }
                     of_n
                 };
@@ -203,7 +203,7 @@ impl UintConstructor {
                 let lhs = self.inner();
                 let rhs = other.inner();
                 let mut ret: #inner_type =
-                    unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let ret_ptr = &mut ret as *mut #inner_type as *mut #unit_suffix;
                 let mut of = false;
                 #loop_part;
@@ -225,14 +225,14 @@ impl UintConstructor {
                     // The carry only can be one.
                     let (val_o, of_o) = #unit_suffix::overflowing_sub(val_n, 1);
                     unsafe {
-                        ::std::ptr::write(ret_ptr.offset(#i), val_o);
+                        ::core::ptr::write(ret_ptr.offset(#i), val_o);
                     }
                     // Can not overflow twice.
                     of_n || of_o
                 } else {
                     let (val_n, of_n) = #unit_suffix::overflowing_sub(lhs[#i], rhs[#i]);
                     unsafe {
-                        ::std::ptr::write(ret_ptr.offset(#i), val_n);
+                        ::core::ptr::write(ret_ptr.offset(#i), val_n);
                     }
                     of_n
                 };
@@ -245,7 +245,7 @@ impl UintConstructor {
                 let lhs = self.inner();
                 let rhs = other.inner();
                 let mut ret: #inner_type =
-                    unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                    unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let ret_ptr = &mut ret as *mut #inner_type as *mut #unit_suffix;
                 let mut of = false;
                 #loop_part;
@@ -754,7 +754,7 @@ impl UintConstructor {
         let part = quote!(
             #[inline]
             fn _bitand(&self, rhs: &Self) -> Self {
-                let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let inner = self.inner();
                 let rhs = rhs.inner();
                 #({
@@ -765,7 +765,7 @@ impl UintConstructor {
             }
             #[inline]
             fn _bitor(&self, rhs: &Self) -> Self {
-                let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let inner = self.inner();
                 let rhs = rhs.inner();
                 #({
@@ -776,7 +776,7 @@ impl UintConstructor {
             }
             #[inline]
             fn _bitxor(&self, rhs: &Self) -> Self {
-                let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let inner = self.inner();
                 let rhs = rhs.inner();
                 #({
@@ -795,7 +795,7 @@ impl UintConstructor {
         let part = quote!(
             #[inline]
             fn _not(&self) -> Self {
-                let mut ret: #inner_type = unsafe { ::std::mem::MaybeUninit::uninit().assume_init() };
+                let mut ret: #inner_type = unsafe { ::core::mem::MaybeUninit::uninit().assume_init() };
                 let inner = self.inner();
                 #({
                     let idx = #loop_unit_amount;

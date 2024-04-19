@@ -6,9 +6,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-//! Implement built-in traits in [`::std::iter`].
+//! Implement built-in traits in [`::core::iter`].
 //!
-//! [`::std::iter`]: https://doc.rust-lang.org/std/iter/index.html#traits
+//! [`::core::iter`]: https://doc.rust-lang.org/core/iter/index.html#traits
 
 use crate::fixed_uint::UintConstructor;
 use quote::quote;
@@ -22,22 +22,22 @@ impl UintConstructor {
     fn impl_traits_std_iter_sum(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl<'a> ::std::iter::Sum<&'a #name> for #name {
+            impl<'a> ::core::iter::Sum<&'a #name> for #name {
                 #[inline]
                 fn sum<I>(iter: I) -> Self
                 where
-                    I: ::std::iter::Iterator<Item = &'a #name>,
+                    I: ::core::iter::Iterator<Item = &'a #name>,
                 {
-                    iter.fold(Self::zero(), ::std::ops::Add::add)
+                    iter.fold(Self::zero(), ::core::ops::Add::add)
                 }
             }
-            impl ::std::iter::Sum<#name> for #name {
+            impl ::core::iter::Sum<#name> for #name {
                 #[inline]
                 fn sum<I>(iter: I) -> Self
                 where
-                    I: ::std::iter::Iterator<Item = #name>,
+                    I: ::core::iter::Iterator<Item = #name>,
                 {
-                    iter.fold(Self::zero(), ::std::ops::Add::add)
+                    iter.fold(Self::zero(), ::core::ops::Add::add)
                 }
             }
         );
@@ -47,22 +47,22 @@ impl UintConstructor {
     fn impl_traits_std_iter_product(&self) {
         let name = &self.ts.name;
         let part = quote!(
-            impl<'a> ::std::iter::Product<&'a #name> for #name {
+            impl<'a> ::core::iter::Product<&'a #name> for #name {
                 #[inline]
                 fn product<I>(iter: I) -> Self
                 where
-                    I: ::std::iter::Iterator<Item = &'a #name>,
+                    I: ::core::iter::Iterator<Item = &'a #name>,
                 {
-                    iter.fold(Self::one(), ::std::ops::Mul::mul)
+                    iter.fold(Self::one(), ::core::ops::Mul::mul)
                 }
             }
-            impl ::std::iter::Product<#name> for #name {
+            impl ::core::iter::Product<#name> for #name {
                 #[inline]
                 fn product<I>(iter: I) -> Self
                 where
-                    I: ::std::iter::Iterator<Item = #name>,
+                    I: ::core::iter::Iterator<Item = #name>,
                 {
-                    iter.fold(Self::one(), ::std::ops::Mul::mul)
+                    iter.fold(Self::one(), ::core::ops::Mul::mul)
                 }
             }
         );

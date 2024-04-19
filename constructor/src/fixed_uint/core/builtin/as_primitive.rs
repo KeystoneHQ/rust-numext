@@ -12,8 +12,8 @@
 //! Some methods, for example, [`count_ones`], we can use reference of self as input,
 //! there is no need to let self to be moved.
 //!
-//! [methods]: https://doc.rust-lang.org/std/primitive.u64.html#methods
-//! [`count_ones`]: https://doc.rust-lang.org/std/primitive.u64.html#method.count_ones
+//! [methods]: https://doc.rust-lang.org/core/primitive.u64.html#methods
+//! [`count_ones`]: https://doc.rust-lang.org/core/primitive.u64.html#method.count_ones
 
 use crate::fixed_uint::UintConstructor;
 use crate::utils;

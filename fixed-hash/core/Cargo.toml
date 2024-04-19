@@ -11,13 +11,13 @@ categories = ["algorithms", "data-structures"]
 license = "Apache-2.0 OR MIT"
 
 [dependencies]
-constructor = { package = "numext-constructor", version = "=0.1.6", path = "../../constructor" }
-nfuint = { package = "numext-fixed-uint", version = "=0.1.6", path = "../../fixed-uint" }
-thiserror = "~1.0"
-rand = { version = "~0.7", optional = true }
-heapsize = { version = "~0.4", optional = true }
-serde = { version = "~1.0", optional = true }
-faster-hex = { version = "~0.4", optional = true }
+constructor = { package = "numext-constructor", version = "=0.1.9", path = "../../constructor" }
+nfuint = { package = "numext-fixed-uint", version = "=0.2.6", path = "../../fixed-uint" }
+thiserror = { version = "1.0", package = "thiserror-core", default-features = false }
+rand = { version = "~0.7", optional = true, default-features = false }
+heapsize = { version = "~0.4", optional = true, default-features = false }
+serde = { version = "~1.0", optional = true, default-features = false }
+faster-hex = { version = "~0.4", optional = true, default-features = false }
 
 [features]
 default = ["bits_all"]
